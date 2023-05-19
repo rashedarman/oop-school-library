@@ -1,4 +1,5 @@
 require_relative './nameable'
+require_relative './decorators'
 
 class Person < Nameable
   attr_reader :id
@@ -22,5 +23,14 @@ class Person < Nameable
   def of_age?
     @age >= 18
   end
-  private :of_age
+  private :of_age?
 end
+
+person = Person.new(22, 'maximilianus')
+person.correct_name
+capitalizedPerson = CapitalizeDecorator.new(person)
+capitalizedPerson.correct_name
+capitalizedTrimmedPerson = TrimmerDecorator.new(capitalizedPerson)
+capitalizedTrimmedPerson.correct_name
+
+p person
