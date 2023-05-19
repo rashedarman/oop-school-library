@@ -5,7 +5,7 @@ class Person < Nameable
   attr_reader :id
   attr_accessor :name, :age
 
-  def initialize(age, name = 'Unknown', parent_permission: true)
+  def initialize(age, name = 'Unknown', parent_permission = true)
     super()
     @id = Random.rand(1..1000)
     @age = age
@@ -24,7 +24,7 @@ class Person < Nameable
   def of_age?
     @age >= 18
   end
-  private :of_age?
+  private :of_age
 end
 
 person = Person.new(22, 'maximilianus')
