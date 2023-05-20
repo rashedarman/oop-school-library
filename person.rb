@@ -1,9 +1,10 @@
-require_relative './nameable'
-require_relative './decorators'
+require_relative 'nameable'
+require_relative 'decorators'
+require_relative 'rental'
 
 class Person < Nameable
+  attr_accessor :name, :age, :rentals
   attr_reader :id
-  attr_accessor :name, :age
 
   def initialize(age, name = 'Unknown', parent_permission: true)
     super()
@@ -11,6 +12,7 @@ class Person < Nameable
     @age = age
     @name = name
     @parent_permission = parent_permission
+    @rentals = []
   end
 
   def correct_name
@@ -25,13 +27,8 @@ class Person < Nameable
     @age >= 18
   end
   private :of_age?
+
+  def add_rental(book, date)
+    Rental.new(date, book, self)
+  end
 end
-
-person = Person.new(22, 'maximilianus')
-person.correct_name
-capitalized_person = CapitalizeDecorator.new(person)
-capitalized_person.correct_name
-capitalized_trimmed_person = TrimmerDecorator.new(capitalized_person)
-capitalized_trimmed_person.correct_name
-
-p person
